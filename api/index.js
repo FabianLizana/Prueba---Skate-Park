@@ -2,12 +2,15 @@ import express from "express";
 import path from "path";
 import fileUpload from "express-fileupload";
 import exphbs from "express-handlebars";
+import dotenv from "dotenv";
 import { promises as fs } from "fs";
 import resetDataQuery from "./queries/getResetDataQuery.js";
 import router from "./router/router.js";
 
+dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PUERTO || 4000;
 
 app.engine(
   ".hbs",
@@ -37,6 +40,7 @@ app.use("/", router);
 app.listen(PORT, () => {
   console.log(`El servidor está inicializado en el puerto ${PORT}`);
 });
+
 
 // ---Paso 3 extra borrado de data:--- Script para resetear la data cada 30 minutos
 // setInterval(async () => {

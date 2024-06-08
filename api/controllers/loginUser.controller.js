@@ -1,10 +1,11 @@
 import getAllDataParticipantesQuery from "../queries/getAllDataParticipantesQuery.js";
-import path from "path";
 import jwt from "jsonwebtoken";
-import "dotenv/config";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
-const secretKey = process.env.SECRET_KEY_JWT;
+dotenv.config();
+
+const secretKey = process.env.SECRET_KEY;
 
 export default async function loginUser(req, res) {
   try {
@@ -13,7 +14,6 @@ export default async function loginUser(req, res) {
       res.status(400).send("Faltan datos");
       return;
     }
-
     const participantes = await getAllDataParticipantesQuery();
     const participante = participantes.find(
       (participante) => participante.email === email
@@ -22,16 +22,13 @@ export default async function loginUser(req, res) {
       res.status(400).send("El email no existe");
       return;
     }
-
-    // Validar la contraseña utilizando bcrypt.compare
     const isValidPassword = await bcrypt.compare(password, participante.password);
     if (!isValidPassword) {
       res.status(400).send("La contraseña es incorrecta");
       return;
     }
 
-    // Generar el token JWT
-    jwt.sign(participante, secretKey, { expiresIn: 2 * 60 }, (err, token) => {
+    jwt.sign(participante, secretKey, { expiresIn: "2h" }, (err, token) => {
       if (err) {
         res.status(500).send("Ha ocurrido un error");
         return;

@@ -1,5 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import pkg from "pg";
-import "dotenv/config";
 const { Pool } = pkg;
 const { DB_CONNECT_STRING } = process.env;
 
@@ -12,3 +14,4 @@ const config = {
 const pool = new Pool(config);
 
 export default pool;
+
