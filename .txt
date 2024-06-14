@@ -7,3 +7,9 @@ http://localhost:4000/admin es la ruta para el administrador.
 En index.js (linea 41)tengo un borrado de datos, que borra al cliente y la imagen cada 30 minutos, cual esta comentando para no se borre mientras se revisa.
 
 Envio por mensaje privado en slack como tengo el archivo .env
+
+Y tambien dejo un ejemplo general de como va el archivo .env:
+
+SECRET_KEY=Clave secreta para tokens
+DB_CONNECT_STRING=postgres://postgres:NombreDelUsuario@localhost:numero-que-corresponda-al localhost-utilizado/skatepark
+PUERTO=4000
